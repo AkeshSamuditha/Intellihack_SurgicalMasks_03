@@ -8,7 +8,7 @@ model = "deepseek-r1-distill-llama-70b"
 
 import os
 def main():
-    directory = "q3_dataset"
+    directory = "/q3_dataset"
     FILES = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
     TRAIN_FILES = FILES[:-2]
     VAL_FILES = FILES[-2:]
