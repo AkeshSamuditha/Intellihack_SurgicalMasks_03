@@ -8,7 +8,13 @@ model = "deepseek-r1-distill-llama-70b"
 
 import os
 def main():
-    directory = "./q3_dataset/"
+    directory = "/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset"  # Ensure this directory exists
+    
+    # Create directory if it doesn't exist
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Created directory: {directory}")
+        
     FILES = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
     TRAIN_FILES = FILES[:-2]
     VAL_FILES = FILES[-2:]
