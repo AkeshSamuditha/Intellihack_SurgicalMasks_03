@@ -1,22 +1,17 @@
 import json
 from llama_index.core import SimpleDirectoryReader
 from llama_index.core.node_parser import SentenceSplitter
-from llama_index.core.schema import MetadataMode
-from llama_index.llms.ollama import Ollama
-from llama_index.core.prompts import PromptTemplate
 from llama_index.finetuning import generate_qa_embedding_pairs
-from llama_index.core.evaluation import EmbeddingQAFinetuneDataset
 
 GROQ_API_KEY = "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"
+model = "deepseek-r1-distill-llama-70b"
+
 import os
 def main():
     directory = "q3_dataset"
     FILES = [os.path.join(directory, f) for f in os.listdir(directory) if os.path.isfile(os.path.join(directory, f))]
     TRAIN_FILES = FILES[:-2]
     VAL_FILES = FILES[-2:]
-
-    TRAIN_CORPUS_FPATH = "./data/train_corpus.json"
-    VAL_CORPUS_FPATH = "./data/val_corpus.json"
 
     def load_corpus(files, verbose=False):
         if verbose:
@@ -41,12 +36,12 @@ def main():
     from llama_index.llms.groq import Groq
 
     train_dataset = generate_qa_embedding_pairs(
-        llm = Groq(model="llama3-70b-8192", api_key=GROQ_API_KEY),
+        llm = Groq(model=model, api_key=GROQ_API_KEY),
         nodes=train_nodes,
         output_path="train_dataset.json",
     )
     val_dataset = generate_qa_embedding_pairs(
-        llm = Groq(model="llama3-70b-8192", api_key=GROQ_API_KEY),
+        llm = Groq(model=model, api_key=GROQ_API_KEY),
         nodes=val_nodes,
         output_path="val_dataset.json",
     )
