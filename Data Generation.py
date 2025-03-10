@@ -68,5 +68,5 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    main(args.folderm,args.api_key)
+    main(args.folder,args.api_key)
     print("Data generation complete!")
