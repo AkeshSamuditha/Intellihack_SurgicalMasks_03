@@ -56,6 +56,7 @@ def preprocess(examples):
             end_positions.append(idx + 1)
     inputs["start_positions"] = start_positions
     inputs["end_positions"] = end_positions
+    inputs["labels"] = inputs["input_ids"].copy()
     return inputs
 
 

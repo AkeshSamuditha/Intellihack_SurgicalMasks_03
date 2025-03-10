@@ -3,11 +3,8 @@ from llama_index.core import SimpleDirectoryReader
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.finetuning import generate_qa_embedding_pairs
 
-GROQ_API_KEY = "YOUR API KEY"
-model = "deepseek-r1-distill-llama-70b"
-
 import os
-def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset", GROQ_API_KEY=GROQ_API_KEY):
+def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset"):
     
     # Create directory if it doesn't exist
     if not os.path.exists(directory):
@@ -38,7 +35,6 @@ def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset", GR
     train_nodes = load_corpus(TRAIN_FILES, verbose=True)
     val_nodes = load_corpus(VAL_FILES, verbose=True)
 
-    from llama_index.llms.groq import Groq
     from llama_index.llms.gemini import Gemini
 
     train_dataset = generate_qa_embedding_pairs(
@@ -48,7 +44,7 @@ def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset", GR
         output_path="train_dataset.json",
     )
     val_dataset = generate_qa_embedding_pairs(
-        llm = Groq(model=model, api_key=GROQ_API_KEY),
+        llm = Gemini(model="models/gemini-1.5-flash", api_key="AIzaSyDIk_K4o6bEXubX36Irl9LQFM4tyLUS8HY"),
         nodes=val_nodes,
         output_path="val_dataset.json",
     )

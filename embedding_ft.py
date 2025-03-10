@@ -134,6 +134,7 @@ def main():
         save_total_limit=3,                          
         load_best_model_at_end=True,                 
         metric_for_best_model="eval_dim_128_cosine_ndcg@10", 
+        
     )
 
     from sentence_transformers import SentenceTransformerTrainer
