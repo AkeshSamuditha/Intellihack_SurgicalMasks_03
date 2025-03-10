@@ -3,12 +3,11 @@ from llama_index.core import SimpleDirectoryReader
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.finetuning import generate_qa_embedding_pairs
 
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "YOUR API KEY"
 model = "deepseek-r1-distill-llama-70b"
 
 import os
-def main():
-    directory = "/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset"  # Ensure this directory exists
+def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset", GROQ_API_KEY=GROQ_API_KEY):
     
     # Create directory if it doesn't exist
     if not os.path.exists(directory):
@@ -40,9 +39,13 @@ def main():
     val_nodes = load_corpus(VAL_FILES, verbose=True)
 
     from llama_index.llms.groq import Groq
+    from llama_index.llms.gemini import Gemini
 
     train_dataset = generate_qa_embedding_pairs(
-        llm = Groq(model=model, api_key=GROQ_API_KEY),
+        llm = Gemini(
+            model="models/gemini-1.5-flash",
+            api_key="AIzaSyDIk_K4o6bEXubX36Irl9LQFM4tyLUS8HY"),
+        # llm = Groq(model=model, api_key=GROQ_API_KEY),
         nodes=train_nodes,
         output_path="train_dataset.json",
     )
@@ -57,5 +60,13 @@ def main():
     val_dataset.save_json("val_dataset.json")
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="Generate QA embeddings from documents")
+    parser.add_argument("--folder", type=str, required=True, help="Path to the dataset folder")
+    parser.add_argument("--api_key", type=str, required=True, help="GROQ API key")
+    
+    args = parser.parse_args()
+    
+    main(args.folderm,args.api_key)
     print("Data generation complete!")
