@@ -42,9 +42,7 @@ def main(directory="/kaggle/working/Intellihack_SurgicalMasks_03/q3_dataset", GR
     from llama_index.llms.gemini import Gemini
 
     train_dataset = generate_qa_embedding_pairs(
-        llm = Gemini(
-            model="models/gemini-1.5-flash",
-            api_key="AIzaSyDIk_K4o6bEXubX36Irl9LQFM4tyLUS8HY"),
+        llm = Gemini(model="models/gemini-1.5-flash", api_key="AIzaSyDIk_K4o6bEXubX36Irl9LQFM4tyLUS8HY"),
         # llm = Groq(model=model, api_key=GROQ_API_KEY),
         nodes=train_nodes,
         output_path="train_dataset.json",
