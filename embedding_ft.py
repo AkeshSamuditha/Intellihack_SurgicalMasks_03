@@ -33,25 +33,6 @@ def main():
             context = val_dataset['train'][0]['corpus'][doc]
             test_dataset.append({'id': id,'question': question, 'context': context})
             id += 1
-            
-            
-    import torch
-    from sentence_transformers import SentenceTransformer
-    from sentence_transformers.evaluation import (
-        InformationRetrievalEvaluator,
-        SequentialEvaluator,
-    )
-    from sentence_transformers.util import cos_sim
-    from datasets import load_dataset, concatenate_datasets
-    
-    model_id = "BAAI/bge-large-en-v1.5"
-    matryoshka_dimensions = [768, 512, 256, 128, 64]
-    
-    # Load a model
-    model = SentenceTransformer(
-        model_id, device="cuda" if torch.cuda.is_available() else "cpu"
-    )
-    
 
     import torch
     from sentence_transformers import SentenceTransformer
@@ -60,7 +41,6 @@ def main():
         SequentialEvaluator,
     )
     from sentence_transformers.util import cos_sim
-    from datasets import load_dataset, concatenate_datasets
     
     model_id = "BAAI/bge-large-en-v1.5"
     matryoshka_dimensions = [768, 512, 256, 128, 64]
